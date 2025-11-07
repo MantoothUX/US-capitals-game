@@ -6,11 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "deploy": "npm run build && quick deploy out us-states-and-capitals"
+    "lint": "eslint"
   },
   "dependencies": {
-    "@shopify/quick": "^0.3.3",
     "next": "15.5.3",
     "react": "19.1.0",
     "react-dom": "19.1.0"

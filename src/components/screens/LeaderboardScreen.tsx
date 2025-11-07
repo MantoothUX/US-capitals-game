@@ -4,19 +4,6 @@ import { useEffect, useState } from 'react'
 import PixelButton from '../PixelButton'
 import { LeaderboardEntry, GameMode } from '@/hooks/useGameState'
 
-declare global {
-  interface Window {
-    quick?: {
-      db: {
-        collection: (name: string) => {
-          find: () => Promise<LeaderboardEntry[]>
-          create: (data: LeaderboardEntry) => Promise<LeaderboardEntry>
-        }
-      }
-    }
-  }
-}
-
 interface LeaderboardScreenProps {
   onReturnToMenu: () => void
   onStartNewGame: () => void
@@ -33,19 +20,14 @@ export function LeaderboardScreen({
   const [error, setError] = useState<string | null>(null)
   const [viewMode, setViewMode] = useState<GameMode>(currentGameMode)
 
-  // Load leaderboard from Quick.db or localStorage
+  // Load leaderboard from localStorage
   useEffect(() => {
-    const loadLeaderboard = async () => {
+    const loadLeaderboard = () => {
       try {
-        let allEntries: LeaderboardEntry[] = []
-        
-        if (typeof window !== 'undefined' && window.quick?.db) {
-          const collection = window.quick.db.collection('us-states-leaderboard')
-          allEntries = await collection.find()
-        } else {
-          // Fallback to localStorage
-          allEntries = JSON.parse(localStorage.getItem('us-states-scores') || '[]')
-        }
+        // Load from localStorage
+        const allEntries: LeaderboardEntry[] = JSON.parse(
+          localStorage.getItem('us-states-scores') || '[]'
+        )
         
         // Filter by game mode (treat undefined/null as 'easy' for backwards compatibility)
         const filteredEntries = allEntries.filter(entry => 
@@ -66,12 +48,7 @@ export function LeaderboardScreen({
       } catch (err) {
         console.error('Failed to load leaderboard:', err)
         setError('Failed to load scores')
-        // Still try localStorage on error
-        const localScores = JSON.parse(localStorage.getItem('us-states-scores') || '[]')
-        const filtered = localScores.filter((entry: LeaderboardEntry) => 
-          (entry.gameMode || 'easy') === viewMode
-        )
-        setLeaderboard(filtered.slice(0, 10))
+        setLeaderboard([])
       } finally {
         setLoading(false)
       }

@@ -13,20 +13,6 @@ import IncorrectFeedbackScreen from './screens/IncorrectFeedbackScreen'
 import GameCompleteScreen from './screens/GameCompleteScreen'
 import LeaderboardScreen from './screens/LeaderboardScreen'
 import ConfirmModal from './ConfirmModal'
-
-declare global {
-  interface Window {
-    quick?: {
-      db: {
-        collection: (name: string) => {
-          find: () => Promise<LeaderboardEntry[]>
-          create: (data: LeaderboardEntry) => Promise<LeaderboardEntry>
-        }
-      }
-    }
-  }
-}
-
 import { LeaderboardEntry } from '@/hooks/useGameState'
 
 export function StatesAndCapitalsGame() {
@@ -111,15 +97,10 @@ export function StatesAndCapitalsGame() {
     }
 
     try {
-      if (typeof window !== 'undefined' && window.quick?.db) {
-        const collection = window.quick.db.collection('us-states-leaderboard')
-        await collection.create(scoreEntry)
-      } else {
-        // Fallback to localStorage for development
-        const existingScores = JSON.parse(localStorage.getItem('us-states-scores') || '[]')
-        existingScores.push(scoreEntry)
-        localStorage.setItem('us-states-scores', JSON.stringify(existingScores))
-      }
+      // Save to localStorage
+      const existingScores = JSON.parse(localStorage.getItem('us-states-scores') || '[]')
+      existingScores.push(scoreEntry)
+      localStorage.setItem('us-states-scores', JSON.stringify(existingScores))
       
       // Navigate to leaderboard
       setGameState(prev => ({ ...prev, screen: 'leaderboard' }))

@@ -24,7 +24,7 @@ An addictive retro-style geography learning game where players race against time
 
 ### **🏆 Competitive Features**
 - **Precision Timer**: Millisecond accuracy with top-right display
-- **Hall of Fame**: Persistent leaderboard via Shopify Quick.db
+- **Hall of Fame**: Persistent leaderboard via localStorage
 - **Initials Entry**: Classic arcade-style score saving
 - **Challenge Mode**: Beat the top times
 
@@ -67,8 +67,8 @@ An addictive retro-style geography learning game where players race against time
 - **Framework**: Next.js 15 with TypeScript
 - **Styling**: Tailwind CSS v4 with custom 8-bit theme
 - **Audio**: Web Audio API with programmatic sound generation
-- **Database**: Shopify Quick.db for persistent leaderboard
-- **Deployment**: Static export for Shopify Quick hosting
+- **Storage**: localStorage for persistent leaderboard
+- **Deployment**: Static export for Vercel hosting
 
 ## 📊 **Game Data**
 
@@ -89,8 +89,7 @@ An addictive retro-style geography learning game where players race against time
 ### **Run Locally**
 ```bash
 npm run dev          # Start development server
-npm run build        # Build for production  
-npm run deploy       # Build and deploy to Quick
+npm run build        # Build for production
 ```
 
 ### **Project Structure**
@@ -128,14 +127,12 @@ src/
 
 ## 🚀 **Deployment**
 
-**Live Game**: Coming soon to Quick!
+**Deploy to Vercel**:
+1. Push your code to GitHub
+2. Import the repository in [Vercel](https://vercel.com)
+3. Vercel will automatically detect Next.js and deploy
 
-**To Deploy**:
-```bash
-npm run deploy
-```
-
-The game will be hosted at `us-states-and-capitals.quick.shopify.io` for internal Shopify access.
+The game will be available at your Vercel deployment URL.
 
 ---
 
