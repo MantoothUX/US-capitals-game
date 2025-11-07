@@ -1,0 +1,10 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Washington state with Puget Sound indentations -->
+  <path d="M 80,80 L 160,70 L 240,75 L 300,85 L 320,100 L 330,120 L 325,140 L 315,155 L 300,165 L 280,170 L 260,165 L 240,155 L 220,140 L 205,120 L 195,100 L 190,80 L 185,60 L 180,40 L 175,60 L 170,80 L 165,100 L 160,120 L 155,140 L 150,160 L 145,140 L 140,120 L 135,100 L 130,80 L 125,60 L 120,40 L 115,60 L 110,80 L 105,100 L 100,120 L 95,140 L 90,160 L 85,140 L 80,120 L 75,100 L 80,80 Z" 
+        fill="#2563eb" 
+        stroke="#1e40af" 
+        stroke-width="2" 
+        stroke-linejoin="round"/>
+</svg>
+
+

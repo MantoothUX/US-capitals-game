@@ -1,0 +1,947 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+  /* Patriotic American Color Scheme */
+  --usa-blue: #003756;
+  --usa-white: #E8E2D9;
+  --usa-red: #BE2329;
+  --usa-gold: #BEA75B;
+  
+  /* Supporting colors */
+  --usa-dark-blue: #002744;
+  --usa-light-blue: #1a5a7a;
+  --usa-dark-red: #8b1a1f;
+  --usa-light-red: #d63940;
+  --usa-dark-gold: #9a8649;
+  --usa-light-gold: #d4c172;
+  --usa-cream: #f4f0e7;
+  --usa-charcoal: #2c2c2c;
+  
+  /* Game UI Colors */
+  --usa-screen-bg: var(--usa-charcoal);
+  --usa-ui-bg: var(--usa-blue);
+  --usa-text: var(--usa-white);
+  --usa-accent: var(--usa-gold);
+  --usa-success: var(--usa-blue);
+  --usa-error: var(--usa-red);
+  --usa-warning: var(--usa-gold);
+  --usa-border: var(--usa-white);
+  
+  /* CRT Monitor Colors */
+  --crt-glow: var(--usa-gold);
+  --crt-shadow: rgba(190, 167, 91, 0.3);
+  --scanline-color: rgba(0, 0, 0, 0.2);
+}
+
+@theme inline {
+  /* Patriotic American Color System */
+  --color-usa-blue: var(--usa-blue);
+  --color-usa-white: var(--usa-white);
+  --color-usa-red: var(--usa-red);
+  --color-usa-gold: var(--usa-gold);
+  
+  --color-usa-dark-blue: var(--usa-dark-blue);
+  --color-usa-light-blue: var(--usa-light-blue);
+  --color-usa-dark-red: var(--usa-dark-red);
+  --color-usa-light-red: var(--usa-light-red);
+  --color-usa-dark-gold: var(--usa-dark-gold);
+  --color-usa-light-gold: var(--usa-light-gold);
+  --color-usa-cream: var(--usa-cream);
+  --color-usa-charcoal: var(--usa-charcoal);
+  
+  /* Game UI Colors */
+  --color-usa-screen-bg: var(--usa-screen-bg);
+  --color-usa-ui-bg: var(--usa-ui-bg);
+  --color-usa-text: var(--usa-text);
+  --color-usa-accent: var(--usa-accent);
+  --color-usa-success: var(--usa-success);
+  --color-usa-error: var(--usa-error);
+  --color-usa-warning: var(--usa-warning);
+  --color-usa-border: var(--usa-border);
+  
+  /* CRT Effects */
+  --color-crt-glow: var(--crt-glow);
+  --color-crt-shadow: var(--crt-shadow);
+  --color-scanline: var(--scanline-color);
+  
+  /* Fonts */
+  --font-pixel-8: 'Press Start 2P', monospace;
+  --font-pixel-16: 'VT323', monospace;
+}
+
+/* Global NES-style reset */
+* {
+  box-sizing: border-box;
+  /* Force pixel-perfect rendering */
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  /* Disable antialiasing for sharp pixels */
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+}
+
+html {
+  /* Prevent subpixel rendering */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  /* Allow natural scrolling */
+  height: 100%;
+  /* Prevent bounce scrolling on overscroll */
+  overscroll-behavior: none;
+}
+
+body {
+  background: var(--usa-screen-bg);
+  color: var(--usa-text);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 0;
+  /* Allow content to determine height */
+  min-height: 100%;
+  /* Prevent bounce on overscroll */
+  overscroll-behavior: none;
+  /* iOS specific scroll fix */
+  -webkit-overflow-scrolling: touch;
+  /* Force sharp, pixelated text */
+  text-rendering: optimizeSpeed;
+  font-feature-settings: "liga" 0;
+}
+
+/* CRT Monitor Container - Patriotic Style */
+.crt-monitor {
+  background: var(--usa-charcoal);
+  border-radius: 0;
+  padding: 0;
+  box-shadow: 
+    inset 0 0 20px rgba(0, 0, 0, 0.8);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* CRT Screen with curvature - American themed */
+.crt-screen {
+  background: var(--usa-screen-bg);
+  border-radius: 0;
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  box-shadow: 
+    inset 0 0 30px rgba(190, 167, 91, 0.1);
+}
+
+/* Scanlines overlay - DISABLED for readability */
+.crt-screen::before {
+  /* Commented out - was making text hard to read
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    var(--scanline-color) 2px,
+    var(--scanline-color) 4px
+  );
+  pointer-events: none;
+  z-index: 1000;
+  */
+}
+
+/* CRT glow effect */
+.crt-screen::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(
+    ellipse at center,
+    var(--crt-glow) 0%,
+    transparent 70%
+  );
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Remove all anti-aliasing and smoothing */
+*:focus {
+  outline: none;
+}
+
+/* Patriotic focus indicators */
+.usa-focus:focus {
+  box-shadow: 
+    0 0 0 2px var(--usa-gold),
+    0 0 0 4px var(--usa-blue),
+    0 0 8px var(--crt-glow);
+}
+
+/* Patriotic American Button Styles with Polish */
+.usa-btn {
+  background: var(--usa-white);
+  border: none;
+  color: var(--usa-blue);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 12px 20px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  /* Enhanced shadow with glow */
+  box-shadow:
+    2px 2px 0 var(--usa-blue),
+    4px 4px 0 var(--usa-charcoal),
+    0 4px 20px rgba(0, 0, 0, 0.15),
+    0 0 0 0 rgba(59, 130, 246, 0);
+  border-radius: 0;
+  /* Smooth transition for polish */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Force sharp edges */
+  image-rendering: pixelated;
+  will-change: transform, box-shadow;
+}
+
+.usa-btn:hover {
+  background: var(--usa-cream);
+  /* Instant press effect */
+  transform: translate(1px, 1px);
+  box-shadow:
+    1px 1px 0 var(--usa-blue),
+    2px 2px 0 var(--usa-charcoal);
+}
+
+.usa-btn:active {
+  background: var(--usa-gold);
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.usa-btn:disabled {
+  background: #999;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 1px 1px 0 var(--usa-charcoal);
+}
+
+/* Patriotic Button Variants */
+.usa-btn-primary {
+  background: var(--usa-blue);
+  color: var(--usa-white);
+}
+
+.usa-btn-primary:hover {
+  background: var(--usa-light-blue);
+}
+
+.usa-btn-success {
+  background: var(--usa-gold);
+  color: var(--usa-charcoal);
+}
+
+.usa-btn-success:hover {
+  background: var(--usa-light-gold);
+}
+
+.usa-btn-gold {
+  background: var(--usa-gold) !important;
+  color: var(--usa-charcoal) !important;
+  box-shadow:
+    2px 2px 0 var(--usa-dark-gold),
+    4px 4px 0 var(--usa-charcoal);
+}
+
+.usa-btn-gold:hover {
+  background: var(--usa-light-gold) !important;
+  transform: translate(1px, 1px);
+  box-shadow:
+    1px 1px 0 var(--usa-dark-gold),
+    2px 2px 0 var(--usa-charcoal);
+}
+
+.usa-btn-error {
+  background: var(--usa-red);
+  color: var(--usa-white);
+}
+
+.usa-btn-error:hover {
+  background: var(--usa-light-red);
+}
+
+.usa-btn-selected {
+  background: var(--usa-gold) !important;
+  color: var(--usa-charcoal) !important;
+  box-shadow: 
+    0 0 0 2px var(--usa-white),
+    0 0 0 4px var(--usa-gold),
+    0 0 8px var(--usa-gold);
+}
+
+/* Patriotic UI Panels */
+.usa-panel {
+  background: var(--usa-ui-bg);
+  border: 4px solid var(--usa-border);
+  /* Chunky, blocky panel style */
+  box-shadow: 
+    4px 4px 0 var(--usa-dark-blue),
+    8px 8px 0 var(--usa-charcoal);
+  border-radius: 0;
+  /* No smooth corners - sharp pixels only */
+}
+
+.usa-panel-inset {
+  background: var(--usa-charcoal);
+  border: 4px solid var(--usa-white);
+  box-shadow: 
+    inset 2px 2px 0 #666,
+    inset -2px -2px 0 var(--usa-white);
+}
+
+/* Captain America Comic Book Title Style */
+.comic-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  /* Comic book text effect */
+  color: var(--usa-white);
+  text-shadow: 
+    3px 3px 0 var(--usa-red),
+    6px 6px 0 var(--usa-blue),
+    9px 9px 0 var(--usa-charcoal);
+  /* 3D depth effect */
+  position: relative;
+}
+
+.comic-subtitle {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 20px;
+  color: var(--usa-gold);
+  text-shadow: 
+    2px 2px 0 var(--usa-blue),
+    4px 4px 0 var(--usa-charcoal);
+}
+
+/* Patriotic Screen Effects */
+.usa-screen-success {
+  background: var(--usa-blue);
+  color: var(--usa-white);
+  animation: usa-flash-success 0.5s infinite;
+}
+
+.usa-screen-error {
+  background: var(--usa-red);
+  color: var(--usa-white);
+  animation: usa-flash-error 0.5s infinite;
+}
+
+@keyframes usa-flash-success {
+  0%, 100% { background: var(--usa-blue); }
+  50% { background: var(--usa-white); color: var(--usa-blue); }
+}
+
+@keyframes usa-flash-error {
+  0%, 100% { background: var(--usa-red); }
+  50% { background: var(--usa-charcoal); }
+}
+
+/* Floating Stars Animation */
+@keyframes usa-star-float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+.usa-star-float {
+  animation: usa-star-float 3s ease-in-out infinite;
+}
+
+/* American Flag GIF Background */
+.usa-flag {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.15;
+  
+  /* Center and scale the flag GIF */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flag-gif {
+  width: 80%;
+  height: 80%;
+  object-fit: cover;
+  object-position: center;
+  
+  /* Retro grainy filter effects */
+  filter: 
+    contrast(1.3) 
+    saturate(0.9) 
+    brightness(0.8) 
+    sepia(0.2) 
+    hue-rotate(5deg)
+    blur(0.5px);
+  
+  /* Add vintage grain texture overlay */
+  position: relative;
+}
+
+.flag-gif::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 50%, transparent 20%, rgba(255,255,255,0.1) 21%, rgba(255,255,255,0.1) 34%, transparent 35%), 
+    linear-gradient(0deg, rgba(0,0,0,0.1), transparent 50%, rgba(0,0,0,0.1)),
+    repeating-linear-gradient(90deg, transparent, rgba(0,0,0,0.05) 2px, transparent 4px);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Success Screen Enhanced Flag */
+.usa-flag-success {
+  opacity: 0.25;
+}
+
+.usa-flag-success .flag-gif {
+  filter: 
+    contrast(1.4) 
+    saturate(1.1) 
+    brightness(0.9) 
+    sepia(0.15) 
+    hue-rotate(10deg)
+    blur(0.3px);
+  transform: scale(1.05);
+}
+
+/* Patriotic Animations */
+@keyframes usa-blink {
+  0%, 60% { opacity: 1; }
+  61%, 100% { opacity: 0; }
+}
+
+.usa-blink {
+  animation: usa-blink 1s infinite;
+}
+
+@keyframes nes-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.nes-pulse {
+  animation: nes-pulse 2s infinite;
+}
+
+@keyframes nes-scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 640px) {
+  body {
+    font-size: 10px;
+  }
+  
+  .usa-panel {
+    padding: 12px;
+  }
+  
+  .nes-text-24 {
+    font-size: 18px;
+  }
+  
+  .nes-text-16 {
+    font-size: 14px;
+  }
+  
+  .comic-title {
+    font-size: 48px !important;
+  }
+}
+
+@media (max-height: 768px) {
+  .crt-screen p-8 {
+    padding: 1rem;
+  }
+}
+
+/* Ensure game fits in viewport on all devices */
+@media (max-aspect-ratio: 3/4) {
+  /* Portrait mode adjustments */
+  .max-w-4xl {
+    max-width: 100%;
+  }
+  
+  .comic-title {
+    font-size: 56px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Desktop enhancements */
+  .usa-panel {
+    padding: 20px;
+  }
+}
+
+.nes-scroll {
+  animation: nes-scroll 8s linear infinite;
+}
+
+/* Splash Screen Styles */
+.usa-flag-splash-full {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.flag-stripes-full {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.stripe-full {
+  flex: 1;
+  position: relative;
+  animation: wave-flag 3s ease-in-out infinite;
+}
+
+.stripe-red {
+  background: #B22234;
+}
+
+.stripe-white {
+  background: #FFFFFF;
+}
+
+@keyframes wave-flag {
+  0%, 100% {
+    transform: translateX(0) scaleY(1);
+  }
+  50% {
+    transform: translateX(10px) scaleY(1.05);
+  }
+}
+
+.flag-canton {
+  position: absolute;
+  width: 40%;
+  height: 53.8%; /* 7 stripes out of 13 */
+  background: #3C3B6E;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.stars-grid {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.star-splash {
+  position: absolute;
+  font-size: 10px;
+  animation: twinkle-star 2s ease-in-out infinite;
+  color: white;
+}
+
+@keyframes twinkle-star {
+  0%, 100% { 
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+
+/* Flying Eagle */
+.flying-eagle {
+  position: absolute;
+  font-size: 70px;
+  animation: fly-across linear infinite;
+  z-index: 10;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  transform: scaleX(-1); /* Flip eagle to face right */
+}
+
+@keyframes fly-across {
+  from {
+    left: -150px;
+    transform: translateY(0) scaleX(-1) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-30px) scaleX(-1) rotate(5deg);
+  }
+  50% {
+    transform: translateY(30px) scaleX(-1) rotate(-5deg);
+  }
+  75% {
+    transform: translateY(-15px) scaleX(-1) rotate(3deg);
+  }
+  to {
+    left: calc(100% + 150px);
+    transform: translateY(0) scaleX(-1) rotate(0deg);
+  }
+}
+
+/* Canvas-based fireworks are now used instead of CSS animations */
+
+
+.title-subtitle {
+  font-size: 10px;
+  color: #FFD700;
+  margin-top: 1rem;
+  text-shadow: 1px 1px 0 #000;
+  letter-spacing: 2px;
+}
+
+/* Patriotic Banner */
+.patriotic-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.banner-star {
+  font-size: 24px;
+  animation: spin-star 3s linear infinite;
+}
+
+.banner-text {
+  font-size: 16px;
+  color: #FFF;
+  text-shadow: 2px 2px 0 #000;
+  letter-spacing: 3px;
+}
+
+@keyframes spin-star {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Start Button */
+.start-button-container {
+  position: relative;
+  display: inline-block;
+}
+
+.button-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%);
+  animation: pulse-glow 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.start-game-btn {
+  font-size: 20px !important;
+  padding: 20px 40px !important;
+  background: linear-gradient(180deg, #FF0000 0%, #0000FF 100%) !important;
+  color: #FFF !important;
+  border: 3px solid #FFD700 !important;
+  position: relative;
+  z-index: 1;
+}
+
+.button-star {
+  font-size: 24px;
+  margin: 0 10px;
+}
+
+/* Credits */
+.splash-credits {
+  margin-top: 3rem;
+  color: #FFF;
+  text-shadow: 1px 1px 0 #000;
+  font-size: 10px;
+}
+
+/* Particle Stars */
+.particle-stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle-star {
+  position: absolute;
+  font-size: 16px;
+  animation: fall-star linear infinite;
+}
+
+@keyframes fall-star {
+  from {
+    top: -50px;
+    transform: rotate(0deg);
+  }
+  to {
+    top: calc(100% + 50px);
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive adjustments for splash screen */
+@media (max-width: 768px) {
+  .flying-eagle {
+    font-size: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-subtitle {
+    font-size: 8px;
+  }
+  
+  .start-game-btn {
+    font-size: 16px !important;
+    padding: 16px 24px !important;
+  }
+}
+
+/* Authentic NES Timer Display */
+.nes-timer {
+  background: var(--nes-black);
+  color: var(--nes-yellow);
+  border: 4px solid var(--nes-border);
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  padding: 8px 16px;
+  /* Classic inset screen look */
+  box-shadow: 
+    inset 2px 2px 0 var(--nes-dark-gray),
+    inset -2px -2px 0 var(--nes-white),
+    2px 2px 0 var(--nes-black);
+  border-radius: 0;
+}
+
+/* NES Text Styles - Increased for better readability */
+.nes-text-8 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px; /* Increased from 8px */
+  line-height: 1.4;
+  text-rendering: optimizeSpeed;
+}
+
+.nes-text-16 {
+  font-family: 'VT323', monospace;
+  font-size: 20px; /* Increased from 16px */
+  line-height: 1.3;
+  text-rendering: optimizeSpeed;
+}
+
+.nes-text-24 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 16px; /* Increased from 12px */
+  line-height: 1.3;
+  text-rendering: optimizeSpeed;
+}
+
+/* Larger text for buttons and hints */
+.nes-text-button {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px; /* Larger for buttons */
+  line-height: 1.3;
+  text-rendering: optimizeSpeed;
+}
+
+.nes-text-hint {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px; /* Larger for hints */
+  line-height: 1.4;
+  text-rendering: optimizeSpeed;
+}
+
+/* NES Progress Bar */
+.nes-progress {
+  background: var(--nes-black);
+  border: 2px solid var(--nes-border);
+  height: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.nes-progress-fill {
+  background: var(--nes-green);
+  height: 100%;
+  /* Chunky pixel transitions */
+  transition: width 0.3s steps(20, end);
+  /* Add pixel pattern */
+  background-image: 
+    repeating-linear-gradient(
+      90deg,
+      var(--nes-green) 0px,
+      var(--nes-green) 2px,
+      var(--nes-yellow) 2px,
+      var(--nes-yellow) 4px
+    );
+}
+
+/* NES UI Container */
+.nes-container {
+  background: var(--nes-ui-bg);
+  border: 4px solid var(--nes-border);
+  /* Classic NES bezel effect */
+  box-shadow: 
+    inset 2px 2px 0 var(--nes-white),
+    inset -2px -2px 0 var(--nes-black),
+    4px 4px 0 var(--nes-dark-gray);
+  border-radius: 0;
+  padding: 16px;
+}
+
+/* NES Special Effects */
+
+/* Chromatic aberration on edges */
+.nes-chromatic {
+  position: relative;
+}
+
+.nes-chromatic::before {
+  content: attr(data-text);
+  position: absolute;
+  left: -1px;
+  top: 0;
+  color: var(--nes-red);
+  z-index: -1;
+}
+
+.nes-chromatic::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 1px;
+  top: 0;
+  color: var(--nes-cyan);
+  z-index: -2;
+}
+
+/* NES-style shadows and highlights */
+.nes-raised {
+  box-shadow:
+    2px 0 0 var(--nes-white),
+    0 2px 0 var(--nes-white),
+    2px 2px 0 var(--nes-white),
+    3px 3px 0 var(--nes-dark-gray),
+    4px 4px 0 var(--nes-black);
+}
+
+.nes-inset {
+  box-shadow:
+    inset 2px 2px 0 var(--nes-dark-gray),
+    inset -2px -2px 0 var(--nes-white);
+}
+
+/* Authentic blinking "INSERT COIN" style text */
+.nes-insert-coin {
+  animation: nes-blink 1.5s infinite;
+  font-family: 'Press Start 2P', monospace;
+  color: var(--nes-yellow);
+  text-shadow: 2px 2px 0 var(--nes-black);
+}
+
+/* NES Sprite-style character icons */
+.nes-heart {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: var(--nes-red);
+  /* Pixel heart shape using box-shadow */
+  box-shadow:
+    2px 0 0 var(--nes-red),
+    4px 0 0 var(--nes-red),
+    0 2px 0 var(--nes-red),
+    2px 2px 0 var(--nes-red),
+    4px 2px 0 var(--nes-red),
+    6px 2px 0 var(--nes-red),
+    0 4px 0 var(--nes-red),
+    2px 4px 0 var(--nes-red),
+    4px 4px 0 var(--nes-red),
+    2px 6px 0 var(--nes-red);
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .crt-monitor {
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  .nes-btn {
+    font-size: 6px;
+    padding: 8px 16px;
+  }
+  
+  .nes-timer {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+  
+  .nes-text-8 {
+    font-size: 6px;
+  }
+  
+  .nes-text-16 {
+    font-size: 12px;
+  }
+  
+  .nes-text-24 {
+    font-size: 10px;
+  }
+}
